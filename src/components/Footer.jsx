@@ -114,8 +114,8 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 pt-8 flex items-center justify-between text-gray-500 relative">
-          <p className="m-0">© {new Date().getFullYear()} Media ITeye. All rights reserved.</p>
+        <div className="border-t border-gray-800 pt-8 flex flex-col items-center justify-center gap-2 md:flex-row md:items-center md:justify-between text-gray-500 relative text-center md:text-left">
+          <p className="m-0 w-full md:w-auto">© {new Date().getFullYear()} Media ITeye. All rights reserved.</p>
           <a
             href="https://pigo-pi.com/"
             target="_blank"
