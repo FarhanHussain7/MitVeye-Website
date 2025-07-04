@@ -1,24 +1,37 @@
 // src/pages/Team.jsx
 import React from 'react';
+import image1 from '../assets/images/team/Team1.jpg';
+import image2 from '../assets/images/team/team2.jpg';
+import image3 from '../assets/images/team/team3.jpg'; 
+import image4 from '../assets/images/team/team4.jpg';
+
+
 
 const Team = () => {
   const teamMembers = [
     {
       name: "Er. Vikas Singh",
       position: "Founder",
-      quote: "At Media ITeye, creativity is our currency, innovation is our fuel, and collaboration is our strength."
+      quote: "At Media ITeye, creativity is our currency, innovation is our fuel, and collaboration is our strength.",
+      image: image1
     },
     {
       name: "Jyoti Verma",
-      position: "COO"
+      position: "COO",
+      quote: "Leadership is not about being in charge. It's about taking care of those in your charge.",
+      image: image2
     },
     {
       name: "Dipti Singh",
-      position: "Regional Head"
+      position: "Regional Head",
+      quote: "Empowering teams to achieve greatness through collaboration and innovation.",
+      image: image3 
     },
     {
       name: "Shabana Farooqui",
-      position: "Social Media Community Manager"
+      position: "Social Media Community Manager",
+      quote: "Building communities through authentic engagement and meaningful connections.",
+      image: image4
     }
   ];
 
@@ -33,7 +46,7 @@ const Team = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-12xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
           {teamMembers.map((member, index) => {
             // Define a set of gradient backgrounds
             const gradients = [
@@ -44,17 +57,20 @@ const Team = () => {
 ];
             const cardBg = gradients[index % gradients.length];
             return (
-              // <div key={index} className={`${cardBg} rounded-xl shadow-md overflow-hidden`}>
-                <div
-  key={index}
-  className={`${cardBg} rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 active:scale-95`}
->
-                <div className="p-6">
-                  <div className="bg-gray-200 border-2 border-red-500 border-dashed rounded-xl w-70 h-60 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-center text-gray-800">{member.name}</h3>
-                  <p className="text-indigo-600 text-center font-medium mb-4">{member.position}</p>
+              <div
+                key={index}
+                className={`${cardBg} rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 active:scale-95 flex flex-col items-center`}
+              >
+                <div className="p-4 sm:p-6 flex flex-col items-center">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="object-cover border-2 border-white rounded-xl w-28 h-28 sm:w-48 sm:h-48 mx-auto mb-2 sm:mb-4 shadow-lg"
+                  />
+                  <h3 className="text-lg sm:text-xl font-bold text-center text-gray-800">{member.name}</h3>
+                  <p className="text-indigo-600 text-center font-medium mb-1 sm:mb-4">{member.position}</p>
                   {member.quote && (
-                    <p className="text-gray-600 italic text-center">"{member.quote}"</p>
+                    <p className="text-gray-600 italic text-center text-xs sm:text-base">"{member.quote}"</p>
                   )}
                 </div>
               </div>

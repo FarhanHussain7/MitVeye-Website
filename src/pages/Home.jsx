@@ -7,8 +7,23 @@ import Testimonials from './Testimonials';
 
 const Home = () => {
   const [showAnimation, setShowAnimation] = useState(false);
+  const heroImages = [
+    "src/assets/images/HomeImages/Team1.jpg",
+    "src/assets/images/HomeImages/Screenshot1.png",
+    "src/assets/images/HomeImages/Screenshot2.png",
+    "src/assets/images/HomeImages/Screenshot3.png"
+  ];
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+
   useEffect(() => {
     setShowAnimation(true);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -23,6 +38,21 @@ const Home = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto md:mx-0">
             Transform your online presence into a captivating symphony of likes, shares, and followers!
           </p>
+
+           {/* Animated Hero Images Carousel */}
+          <div className="relative w-full max-w-[450px] h-[220px] sm:h-[300px] mx-auto mb-6 mt-4">
+            {heroImages.map((img, idx) => (
+              <img
+                key={img}
+                src={img}
+                alt="Hero Visual"
+                width={450}
+                height={300}
+                className={`absolute top-0 left-0 w-full h-full object-cover rounded-xl shadow-2xl border-4 border-white transition-all duration-700 ${idx === currentHeroImage ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0'}`}
+                style={{ transitionProperty: 'opacity, transform', zIndex: idx === currentHeroImage ? 10 : 0 }}
+              />
+            ))}
+          </div>
           <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
             <a 
               href="#services" 
@@ -37,6 +67,7 @@ const Home = () => {
               Contact Us
             </a>
           </div>
+         
         </div>
         {/* Vertical Black Line */}
         <div className="hidden md:flex items-stretch">
@@ -86,11 +117,11 @@ const Home = () => {
           </motion.h1>
 
           <img 
-  src="/imagesMiteye.jpg" 
-  alt="Hero Visual" 
-  className="w-200 h-100 object-cover rounded-xl mx-auto mb-4 shadow-2xl border-4 border-white transition-transform duration-300 hover:scale-105 hover:shadow-amber-400/50 hover:shadow-2xl hover:border-green-400"
-  style={{ zIndex: 2 }}
-/>
+            src="/imagesMiteye.jpg" 
+            alt="Hero Visual" 
+            className="w-full max-w-[520px] h-[180px] sm:h-[340px] object-cover rounded-xl mx-auto mb-4 shadow-2xl border-4 border-white transition-transform duration-300 hover:scale-105 hover:shadow-amber-400/50 hover:shadow-2xl hover:border-green-400"
+            style={{ zIndex: 2 }}
+          />
           <p className="text-xl mb-8 max-w-2xl mx-auto md:mx-0">
             Let your brand story shine and your message echo across digital landscapes!
           </p>
@@ -124,7 +155,7 @@ const Home = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {[
               { title: "Engage", desc: "Build digital relationships and reputation" },
               { title: "Elevate", desc: "Transform your social media presence" },
