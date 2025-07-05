@@ -1,26 +1,32 @@
 // src/pages/Contact.jsx
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+export const ContactForm = () => {
+  const form = useRef();
+  const [status, setStatus] = useState('Send');
 
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Here you would typically send the data to your backend
-    alert('Thank you for contacting us! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+    setStatus('Sending...');
+
+    emailjs
+      .sendForm('service_zn6wb13', 'template_i45dl9j', form.current, {
+        publicKey: 'R_aeOdKJIMCyOyzdQ',
+      })
+      .then(
+        () => {
+          setStatus('Sent!');
+          form.current.reset();
+          setTimeout(() => setStatus('Send'), 3000);
+        },
+        (error) => {
+          setStatus('Failed. Try again!');
+          setTimeout(() => setStatus('Send'), 3000);
+        }
+      );
   };
 
   return (
@@ -33,26 +39,22 @@ const Contact = () => {
             Ready to elevate your social media presence? Contact us today for a free consultation.
           </p>
         </div>
-        
         <div className="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="lg:w-1/2">
-            <div className="bg-gray-50 rounded-xl shadow-lg p-8">
+            <div className="bg-gradient-to-br from-blue-600 to-white rounded-xl shadow-lg p-8">
               <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
-              <form onSubmit={handleSubmit}>
+              <form ref={form} onSubmit={sendEmail}>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 mb-2">Full Name</label>
                   <input
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     required
                   />
                 </div>
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
@@ -60,8 +62,6 @@ const Contact = () => {
                       type="email"
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       required
                     />
@@ -72,21 +72,16 @@ const Contact = () => {
                       type="tel"
                       id="phone"
                       name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       required
                     />
                   </div>
                 </div>
-                
                 <div className="mb-4">
                   <label htmlFor="service" className="block text-gray-700 mb-2">Service Interested In</label>
                   <select
                     id="service"
                     name="service"
-                    value={formData.service}
-                    onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     required
                   >
@@ -99,33 +94,36 @@ const Contact = () => {
                     <option value="campaign">Marketing Campaign</option>
                   </select>
                 </div>
-                
                 <div className="mb-6">
                   <label htmlFor="message" className="block text-gray-700 mb-2">Your Message</label>
                   <textarea
                     id="message"
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     rows="4"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     required
                   ></textarea>
                 </div>
-                
-                <button 
-                  type="submit" 
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
-                >
-                  Send Message
-                </button>
+                <input
+                  className={`font-extrabold text-xl px-6 py-3 rounded-lg transition duration-300 cursor-pointer w-full ${
+                    status === 'Send'
+                      ? 'bg-white text-[#2c5364] hover:bg-gray-100'
+                      : status === 'Sending...'
+                      ? 'bg-blue-500 text-white cursor-wait'
+                      : status === 'Sent!'
+                      ? 'bg-green-500 text-white'
+                      : 'bg-red-500 text-white'
+                  }`}
+                  type="submit"
+                  value={status}
+                  disabled={status === 'Sending...'}
+                />
               </form>
             </div>
           </div>
-          
           {/* Contact Info */}
           <div className="lg:w-1/2">
-            <div className="bg-gradient-to-br from-gray-600 to-gray-300 text-white rounded-xl shadow-lg p-8 h-full">
+            <div className="bg-gradient-to-br from-blue-600 to-white text-white rounded-xl shadow-lg p-8 h-full">
               <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
               
               <div className="space-y-6 mb-8">
@@ -216,4 +214,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default ContactForm;

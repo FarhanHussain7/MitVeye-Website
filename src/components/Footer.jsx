@@ -10,9 +10,10 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-white text-indigo-700 font-bold text-xl px-3 py-1 rounded">MI</div>
-              <span className="text-2xl font-bold">Media ITeye</span>
+            <div className="flex items-center space-x-2 mb-4 border-b border-white pb-2">
+              <div className="w-24 h-24 rounded-full border-4 border-indigo-500 bg-white flex items-center justify-center overflow-hidden">
+                <img src="/logo2.jpg" alt="" className="w-20 h-20 object-contain" />
+              </div>
             </div>
             <p className="text-gray-400 mb-4">
               Empowering Connections, Illuminating Networks. Transform your social media presence with our expert services.

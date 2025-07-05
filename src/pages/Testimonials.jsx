@@ -1,5 +1,5 @@
 // src/pages/Testimonials.jsx
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 const Testimonials = () => {
   const testimonials = [
@@ -35,6 +35,8 @@ const Testimonials = () => {
     }
   ];
 
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <div className="py-16 bg-blue-500">
       <div className="container mx-auto px-4">
@@ -45,32 +47,47 @@ const Testimonials = () => {
             Customer Satisfaction is worthless. The result of a business is a satisfied customer.
           </p>
         </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            // <div key={index} className="bg-gray-300 rounded-xl shadow-lg p-6 border-l-4 border-indigo-500">
-           <div
-  key={index}
-  className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-indigo-500 transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-amber-400 hover:bg-gradient-to-br hover:from-indigo-100 hover:to-yellow-100"
->
-            <p className="text-black mb-4 italic">"{testimonial.content}"</p>
-              <div className="flex justify-between items-center">
-                <div>
-                  <div className="font-bold text-gray-800">{testimonial.author}</div>
-                  <div className="text-sm text-gray-500">{testimonial.time}</div>
-                </div>
-                <div className="flex text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                  ))}
+        {/* review section  */}
+        <div className="relative overflow-x-hidden py-2">
+          <div
+            className={`flex gap-8 w-max ${isPaused ? '' : 'animate-slide-infinite'}`}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {testimonials.concat(testimonials).map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl shadow-lg p-6 border-l-4 border-indigo-500 transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-amber-400 hover:bg-gradient-to-br hover:from-indigo-100 hover:to-yellow-100 min-w-[320px] max-w-xs flex-shrink-0"
+                style={{ width: '320px' }}
+              >
+                <p className="text-black mb-4 italic">"{testimonial.content}"</p>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="font-bold text-gray-800">{testimonial.author}</div>
+                    <div className="text-sm text-gray-500">{testimonial.time}</div>
+                  </div>
+                  <div className="flex text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                      </svg>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <style>{`
+            @keyframes slide-infinite {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .animate-slide-infinite {
+              animation: slide-infinite 30s linear infinite;
+            }
+          `}</style>
         </div>
-        
+        {/* performance section  */}
         <div className="mt-16 bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-6">Performance Metrics</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
