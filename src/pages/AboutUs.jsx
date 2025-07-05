@@ -470,13 +470,13 @@ const AboutUs = () => {
 
         <div className="container mx-auto px-4 relative">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-blue-900 mb-4">
+            <h2 className="text-4xl font-bold text-black mb-4">
               Our Core Values
             </h2>
             <div className="mt-2 w-24 h-1 mx-auto bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
 
             {/* <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto"></div> */}
-            <p className="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
+            <p className="text-xl text-white mt-4 max-w-2xl mx-auto">
               The principles that guide our journey and define our commitment to
               excellence
             </p>

@@ -122,7 +122,7 @@ const Home = () => {
             className="w-full max-w-[520px] h-[180px] sm:h-[340px] object-cover rounded-xl mx-auto mb-4 shadow-2xl border-4 border-white transition-transform duration-300 hover:scale-105 hover:shadow-amber-400/50 hover:shadow-2xl hover:border-green-400"
             style={{ zIndex: 2 }}
           />
-          <p className="text-xl mb-8 max-w-2xl mx-auto md:mx-0">
+          <p className="text-xl mb-12 max-w-4xl mx-auto md:mx-0 font-semibold leading-relaxed">
             Let your brand story shine and your message echo across digital landscapes!
           </p>
           <div className="flex flex-col sm:flex-row justify-center md:justify-end gap-4">
